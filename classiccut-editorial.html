@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classic Cut — 58 Ikugbumire, Mowe</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #0C0C0C;
+  --paper: #F2EDE6;
+  --paper2: #EDE6DC;
+  --red: #C0392B;
+  --fade: #B8B0A6;
+  --mid: #6B6560;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ── NOISE TEXTURE ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px;
+}
+
+/* ── NAV ── */
+nav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 2px solid var(--ink);
+  position: sticky;
+  top: 0;
+  background: var(--paper);
+  z-index: 100;
+}
+
+.nav-left {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--mid);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.12em;
+  text-align: center;
+  color: var(--ink);
+}
+
+.nav-right {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--mid);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: right;
+}
+
+/* ── HERO ── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 2px 1fr;
+  min-height: 88vh;
+  border-bottom: 2px solid var(--ink);
+}
+
+.hero-divider {
+  background: var(--ink);
+}
+
+.hero-left {
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: none;
+}
+
+.hero-right {
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: var(--paper2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Big barber pole SVG background */
+.hero-right::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 70%;
+  height: 140%;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 24px,
+    rgba(192,57,43,0.06) 24px,
+    rgba(192,57,43,0.06) 48px
+  );
+  pointer-events: none;
+}
+
+.hero-issue {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5rem, 14vw, 10rem);
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin-bottom: 2rem;
+}
+
+.hero-title .red { color: var(--red); }
+
+.hero-pull {
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 340px;
+  border-left: 3px solid var(--red);
+  padding-left: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.9rem 1.8rem;
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+  width: fit-content;
+}
+
+.hero-cta:hover { background: var(--red); }
+
+/* Right side content */
+.hero-address-block {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 2.5rem;
+}
+
+.hero-address-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 0.5rem;
+}
+
+.hero-address {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.hero-stats-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid rgba(12,12,12,0.15);
+  padding-bottom: 0.8rem;
+}
+
+.stat-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+.stat-key {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mid);
+}
+
+.stat-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+
+.stat-val.red { color: var(--red); }
+
+/* ── MARQUEE ── */
+.marquee-strip {
+  border-bottom: 2px solid var(--ink);
+  overflow: hidden;
+  padding: 0.7rem 0;
+  background: var(--ink);
+}
+
+.strip-track {
+  display: flex;
+  gap: 0;
+  animation: marquee 22s linear infinite;
+  white-space: nowrap;
+  width: max-content;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.strip-item {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+  padding: 0 1rem;
+}
+
+.strip-item.red-item { color: var(--red); }
+
+/* ── SERVICES ── */
+.services-section {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  border-bottom: 2px solid var(--ink);
+  min-height: 600px;
+}
+
+.services-sidebar {
+  border-right: 2px solid var(--ink);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--paper2);
+}
+
+.sidebar-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mid);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  align-self: flex-start;
+}
+
+.sidebar-big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  line-height: 0.9;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+
+.sidebar-note {
+  font-style: italic;
+  font-size: 0.78rem;
+  color: var(--mid);
+  line-height: 1.6;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.service-item {
+  padding: 2rem;
+  border-right: 1px solid rgba(12,12,12,0.12);
+  border-bottom: 1px solid rgba(12,12,12,0.12);
+  cursor: pointer;
+  transition: background 0.18s;
+  position: relative;
+}
+
+.service-item:nth-child(even) { border-right: none; }
+.service-item:nth-last-child(-n+2) { border-bottom: none; }
+
+.service-item:hover { background: var(--paper2); }
+
+.service-item:hover .svc-arrow { opacity: 1; transform: translate(2px, -2px); }
+
+.svc-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--red);
+  letter-spacing: 0.12em;
+  margin-bottom: 1rem;
+}
+
+.svc-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  margin-bottom: 0.6rem;
+  color: var(--ink);
+}
+
+.svc-desc {
+  font-size: 0.78rem;
+  color: var(--mid);
+  line-height: 1.6;
+  margin-bottom: 1.4rem;
+  font-style: italic;
+}
+
+.svc-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.svc-price {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.svc-arrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--red);
+  letter-spacing: 0.08em;
+  opacity: 0;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+
+/* ── PHILOSOPHY ── */
+.philosophy {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 2px solid var(--ink);
+}
+
+.phil-col {
+  padding: 3rem 2.5rem;
+  border-right: 2px solid var(--ink);
+}
+
+.phil-col:last-child { border-right: none; }
+
+.phil-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 1.2rem;
+}
+
+.phil-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+.phil-text {
+  font-size: 0.82rem;
+  color: var(--mid);
+  line-height: 1.8;
+  font-style: italic;
+}
+
+.phil-col.dark {
+  background: var(--ink);
+}
+
+.phil-col.dark .phil-label { color: rgba(242,237,230,0.35); }
+.phil-col.dark .phil-heading { color: var(--paper); }
+.phil-col.dark .phil-text { color: rgba(242,237,230,0.5); }
+
+/* ── HOW ── */
+.how-section {
+  padding: 4rem 2.5rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.how-inner {
+  max-width: 960px;
+}
+
+.how-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid rgba(12,12,12,0.15);
+  padding-bottom: 1rem;
+}
+
+.how-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 0.04em;
+}
+
+.how-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--mid);
+}
+
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.how-step {
+  padding: 1.5rem 1.5rem 1.5rem 0;
+  border-right: 1px solid rgba(12,12,12,0.12);
+  padding-right: 2rem;
+  margin-right: 2rem;
+}
+
+.how-step:last-child {
+  border-right: none;
+  padding-right: 0;
+  margin-right: 0;
+}
+
+.how-step-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4rem;
+  line-height: 1;
+  color: rgba(12,12,12,0.08);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.how-step-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+
+.how-step-desc {
+  font-size: 0.75rem;
+  color: var(--mid);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* ── CTA ── */
+.cta-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 2px solid var(--ink);
+}
+
+.cta-left {
+  padding: 4rem 2.5rem;
+  border-right: 2px solid var(--ink);
+}
+
+.cta-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin-bottom: 2rem;
+}
+
+.cta-headline span { color: var(--red); }
+
+.cta-right {
+  padding: 4rem 2.5rem;
+  background: var(--ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cta-right-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(242,237,230,0.35);
+  margin-bottom: 1rem;
+}
+
+.cta-right-text {
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--paper);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: var(--red);
+  color: var(--paper);
+  padding: 1rem 2rem;
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+  width: fit-content;
+}
+
+.cta-btn:hover { background: #a93226; }
+
+.cta-address {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: rgba(242,237,230,0.35);
+  text-transform: uppercase;
+  line-height: 1.8;
+  border-top: 1px solid rgba(242,237,230,0.1);
+  padding-top: 1.5rem;
+}
+
+/* ── FOOTER ── */
+footer {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-top: none;
+  padding-bottom: 5rem;
+}
+
+.footer-left {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--mid);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.footer-mid {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  color: var(--ink);
+}
+
+.footer-right {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--mid);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: right;
+}
+
+/* ── STICKY ── */
+.sticky-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0; right: 0;
+  background: var(--ink);
+  border-top: 2px solid var(--red);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 2rem;
+  z-index: 200;
+}
+
+.sticky-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: rgba(242,237,230,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.sticky-text strong { color: var(--paper); }
+
+.sticky-btn {
+  background: var(--red);
+  color: var(--paper);
+  padding: 0.55rem 1.4rem;
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.sticky-btn:hover { background: #a93226; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 800px) {
+  .hero { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .hero-divider { display: none; }
+  .hero-right { border-top: 2px solid var(--ink); padding: 2.5rem 1.5rem; }
+  .hero-left { padding: 2rem 1.5rem; }
+  .services-section { grid-template-columns: 1fr; }
+  .services-sidebar { border-right: none; border-bottom: 2px solid var(--ink); flex-direction: row; flex-wrap: wrap; gap: 1rem; align-items: center; }
+  .sidebar-label { writing-mode: horizontal-tb; transform: none; }
+  .services-grid { grid-template-columns: 1fr; }
+  .service-item { border-right: none !important; }
+  .service-item:nth-last-child(-n+2) { border-bottom: 1px solid rgba(12,12,12,0.12) !important; }
+  .service-item:last-child { border-bottom: none !important; }
+  .philosophy { grid-template-columns: 1fr; }
+  .phil-col { border-right: none; border-bottom: 2px solid var(--ink); }
+  .phil-col:last-child { border-bottom: none; }
+  .how-steps { grid-template-columns: 1fr 1fr; }
+  .how-step { margin-bottom: 2rem; }
+  .cta-section { grid-template-columns: 1fr; }
+  .cta-left { border-right: none; border-bottom: 2px solid var(--ink); }
+  nav { grid-template-columns: 1fr auto; }
+  .nav-right { display: none; }
+  .sticky-bar { padding: 0.8rem 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">Mowe · Ogun State</div>
+  <div class="nav-logo">CLASSIC CUT</div>
+  <div class="nav-right">Est. Ikugbumire</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div>
+      <p class="hero-issue">— Premium Barbershop · Mowe, Ogun State</p>
+      <h1 class="hero-title">THE<br>SHARP<br><span class="red">CUT.</span></h1>
+    </div>
+    <div>
+      <p class="hero-pull">Every man deserves to sit down looking one way and stand up looking like a different version of himself.</p>
+      <a href="https://wa.me/2349027921586?text=Hi%20Classic%20Cut!%20I%20want%20to%20book%20an%20appointment%20✂️" class="hero-cta" target="_blank">
+        ✂ Book on WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-divider"></div>
+
+  <div class="hero-right">
+    <div class="hero-address-block">
+      <p class="hero-address-label">Find us at</p>
+      <div class="hero-address">58<br>IKUGBUMIRE<br>MOWE</div>
+    </div>
+    <div class="hero-stats-col">
+      <div class="stat-row">
+        <span class="stat-key">Clients served</span>
+        <span class="stat-val red">500+</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-key">Customer rating</span>
+        <span class="stat-val">5.0 ★</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-key">Booking method</span>
+        <span class="stat-val">WhatsApp</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-key">Open</span>
+        <span class="stat-val">7 days</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="strip-track">
+    <span class="strip-item">Low Cut</span>
+    <span class="strip-item red-item">✦</span>
+    <span class="strip-item">Fade</span>
+    <span class="strip-item red-item">✦</span>
+    <span class="strip-item">Shaving</span>
+    <span class="strip-item red-item">✦</span>
+    <span class="strip-item">Beard Trim</span>
+    <span class="strip-item red-item">✦</span>
+    <span class="strip-item">Lineup</span>
+    <span class="strip-item red-item">✦</span>
+    <span class="strip-item">Kids Cut</span>
+    <span class="strip-item red-item">✦</span>
+    <span class="strip-item">Classic Cut · Mowe</span>
+    <span class="strip-item red-item">✦</span>
+    <span class="strip-item">Low Cut</span>
+    <span class="strip-item red-item">✦</span>
+    <span class="strip-item">Fade</span>
+    <span class="strip-item red-item">✦</span>
+    <span class="strip-item">Shaving</span>
+    <span class="strip-item red-item">✦</span>
+    <span class="strip-item">Beard Trim</span>
+    <span class="strip-item red-item">✦</span>
+    <span class="strip-item">Lineup</span>
+    <span class="strip-item red-item">✦</span>
+    <span class="strip-item">Kids Cut</span>
+    <span class="strip-item red-item">✦</span>
+    <span class="strip-item">Classic Cut · Mowe</span>
+    <span class="strip-item red-item">✦</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-section">
+  <div class="services-sidebar">
+    <span class="sidebar-label">Services</span>
+    <div class="sidebar-big">WE<br>CUT.</div>
+    <p class="sidebar-note">Tap any service to open WhatsApp and book your slot instantly.</p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-item" onclick="book('Haircut')">
+      <p class="svc-num">01 — HAIRCUT</p>
+      <h3 class="svc-name">The Cut</h3>
+      <p class="svc-desc">Low cut, fade, afro — precise and clean. Tailored to your shape.</p>
+      <div class="svc-footer">
+        <span class="svc-price">From ₦2,500</span>
+        <span class="svc-arrow">Book →</span>
+      </div>
+    </div>
+
+    <div class="service-item" onclick="book('Shaving')">
+      <p class="svc-num">02 — SHAVING</p>
+      <h3 class="svc-name">The Shave</h3>
+      <p class="svc-desc">Smooth, close shave. Clean tools, clean finish. Every time.</p>
+      <div class="svc-footer">
+        <span class="svc-price">From ₦1,000</span>
+        <span class="svc-arrow">Book →</span>
+      </div>
+    </div>
+
+    <div class="service-item" onclick="book('Beard Trim')">
+      <p class="svc-num">03 — BEARD</p>
+      <h3 class="svc-name">The Trim</h3>
+      <p class="svc-desc">Shape, define, and line up your beard. Sharp edges, no compromise.</p>
+      <div class="svc-footer">
+        <span class="svc-price">From ₦1,000</span>
+        <span class="svc-arrow">Book →</span>
+      </div>
+    </div>
+
+    <div class="service-item" onclick="book('Kids Haircut')">
+      <p class="svc-num">04 — KIDS</p>
+      <h3 class="svc-name">Kids Cut</h3>
+      <p class="svc-desc">Patient, gentle cuts for the young ones. They leave fresh too.</p>
+      <div class="svc-footer">
+        <span class="svc-price">From ₦2,500</span>
+        <span class="svc-arrow">Book →</span>
+      </div>
+    </div>
+
+    <div class="service-item" onclick="book('Lineup & Edge Up')">
+      <p class="svc-num">05 — LINEUP</p>
+      <h3 class="svc-name">Edge Up</h3>
+      <p class="svc-desc">Razor-sharp lineup that frames your face and finishes the look.</p>
+      <div class="svc-footer">
+        <span class="svc-price">From ₦1,000</span>
+        <span class="svc-arrow">Book →</span>
+      </div>
+    </div>
+
+    <div class="service-item" onclick="book('Full Package — Haircut + Shaving + Lineup')">
+      <p class="svc-num">06 — PACKAGE</p>
+      <h3 class="svc-name">Full Classic</h3>
+      <p class="svc-desc">Cut + shave + lineup. The complete Classic Cut experience.</p>
+      <div class="svc-footer">
+        <span class="svc-price">From ₦4,000</span>
+        <span class="svc-arrow">Book →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <div class="phil-col">
+    <p class="phil-label">The standard</p>
+    <h3 class="phil-heading">Clean tools. Every time.</h3>
+    <p class="phil-text">We treat every client's appointment as a fresh start. Sterilised blades, clean capes, no shortcuts.</p>
+  </div>
+  <div class="phil-col dark">
+    <p class="phil-label">The craft</p>
+    <h3 class="phil-heading">Precision is the point.</h3>
+    <p class="phil-text">A bad cut can ruin a week. We take it seriously — every line, every edge, every blend.</p>
+  </div>
+  <div class="phil-col">
+    <p class="phil-label">The booking</p>
+    <h3 class="phil-heading">No app. Just WhatsApp.</h3>
+    <p class="phil-text">One message and your slot is locked. No forms, no downloads, no stress.</p>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how-section">
+  <div class="how-inner">
+    <div class="how-header">
+      <h2 class="how-title">How it works</h2>
+      <span class="how-sub">Four steps to fresh</span>
+    </div>
+    <div class="how-steps">
+      <div class="how-step">
+        <span class="how-step-n">01</span>
+        <div class="how-step-title">Tap "Book on WhatsApp"</div>
+        <p class="how-step-desc">Opens a direct chat. No account, no app, no friction.</p>
+      </div>
+      <div class="how-step">
+        <span class="how-step-n">02</span>
+        <div class="how-step-title">Tell us your service</div>
+        <p class="how-step-desc">Name what you want and when you're available.</p>
+      </div>
+      <div class="how-step">
+        <span class="how-step-n">03</span>
+        <div class="how-step-title">Slot confirmed</div>
+        <p class="how-step-desc">We reply fast. Your time is locked in.</p>
+      </div>
+      <div class="how-step">
+        <span class="how-step-n">04</span>
+        <div class="how-step-title">Walk in. Leave sharp.</div>
+        <p class="how-step-desc">Sit down, get your cut, leave looking right.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-left">
+    <h2 class="cta-headline">BOOK<br>YOUR<br><span>SLOT.</span></h2>
+    <a href="https://wa.me/2349027921586?text=Hi%20Classic%20Cut!%20I%20want%20to%20book%20an%20appointment%20✂️" class="hero-cta" target="_blank">✂ Open WhatsApp</a>
+  </div>
+  <div class="cta-right">
+    <div>
+      <p class="cta-right-label">Classic Cut · Mowe</p>
+      <p class="cta-right-text">"Walk in looking one way. Leave looking like the best version of yourself."</p>
+      <a href="https://wa.me/2349027921586?text=Hi%20Classic%20Cut!%20I%20want%20to%20book%20an%20appointment%20✂️" class="cta-btn" target="_blank">✂ Book on WhatsApp</a>
+    </div>
+    <div class="cta-address">
+      Classic Cut Barber Shop<br>
+      58 Ikugbumire Street<br>
+      Mowe, Ogun State<br>
+      +234 902 792 1586
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">© Classic Cut Barber Shop</div>
+  <div class="footer-mid">CLASSIC CUT</div>
+  <div class="footer-right">Website by Kingbit</div>
+</footer>
+
+<!-- STICKY -->
+<div class="sticky-bar">
+  <span class="sticky-text"><strong>Classic Cut</strong> · 58 Ikugbumire, Mowe</span>
+  <a href="https://wa.me/2349027921586?text=Hi%20Classic%20Cut!%20I%20want%20to%20book%20✂️" class="sticky-btn" target="_blank">✂ Book Now</a>
+</div>
+
+<script>
+  function book(service) {
+    const msg = encodeURIComponent(`Hi Classic Cut! I want to book an appointment for: ${service} ✂️\n\nPlease confirm my slot.`);
+    window.open(`https://wa.me/2349027921586?text=${msg}`, '_blank');
+  }
+</script>
+
+</body>
+</html>

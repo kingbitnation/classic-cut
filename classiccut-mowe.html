@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classic Cut Barber Shop — Book via WhatsApp</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --card: #181818;
+    --border: #2A2A2A;
+    --muted: #666666;
+    --white: #FFFFFF;
+    --green: #25D366;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2rem;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  .logo span { color: var(--gold); }
+
+  .nav-badge {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 0.68rem;
+    font-weight: 500;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 55% 60% at 90% 40%, rgba(201,168,76,0.12) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 50% at 5% 80%, rgba(201,168,76,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 10vw, 6.5rem);
+    line-height: 1.0;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    max-width: 400px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--gold);
+    color: var(--black);
+    padding: 1rem 1.8rem;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 32px rgba(201,168,76,0.25);
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201,168,76,0.35); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: transparent;
+    color: var(--white);
+    padding: 1rem 1.8rem;
+    border-radius: 999px;
+    font-weight: 400;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-strip {
+    background: var(--gold);
+    overflow: hidden;
+    padding: 0.65rem 0;
+  }
+
+  .strip-track {
+    display: flex;
+    gap: 2rem;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .strip-item {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+  }
+
+  .strip-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--black); opacity: 0.4; }
+
+  /* ── SERVICES ── */
+  .services-section {
+    padding: 5rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--white);
+    margin-bottom: 3rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .service-card {
+    background: var(--card);
+    padding: 2rem 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  .service-card:hover { background: #1E1E1E; }
+  .service-card:hover::after { transform: scaleX(1); }
+
+  .service-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .service-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+
+  .service-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+  }
+
+  .service-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .service-price {
+    font-size: 1rem;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  .book-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--white);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .book-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--black); }
+
+  /* ── WHY US ── */
+  .why-section {
+    background: var(--card);
+    padding: 5rem 2rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .why-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .why-text {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .perks { display: flex; flex-direction: column; gap: 1rem; }
+
+  .perk { display: flex; align-items: flex-start; gap: 1rem; }
+
+  .perk-icon {
+    width: 36px; height: 36px;
+    background: rgba(201,168,76,0.1);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .perk-title { font-size: 0.88rem; font-weight: 500; color: var(--white); margin-bottom: 0.2rem; }
+  .perk-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.5; }
+
+  .why-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .why-card {
+    background: var(--dark);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem 1.2rem;
+    text-align: center;
+  }
+
+  .why-card-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .why-card-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how-section {
+    padding: 5rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .how-section .section-title { margin-bottom: 3rem; }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2rem;
+    text-align: left;
+  }
+
+  .step { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: rgba(201,168,76,0.2);
+    line-height: 1;
+  }
+
+  .step-title { font-size: 0.9rem; font-weight: 500; color: var(--white); }
+  .step-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── CTA ── */
+  .cta-section {
+    margin: 0 2rem 5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    max-width: 1060px;
+    margin-inline: auto;
+    margin-bottom: 0;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    color: var(--white);
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .cta-sub {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  /* ── LOCATION ── */
+  .location-bar {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  .location-bar strong { color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--muted);
+    padding-bottom: 6rem;
+  }
+
+  footer strong { color: rgba(255,255,255,0.5); }
+
+  /* ── STICKY BAR ── */
+  .sticky-bar {
+    position: fixed;
+    bottom: 1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dark);
+    border: 1px solid var(--border);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1.2rem;
+    border-radius: 999px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    z-index: 200;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .sticky-bar a {
+    background: var(--gold);
+    color: var(--black);
+    padding: 0.5rem 1.2rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.8rem;
+    transition: background 0.2s;
+  }
+
+  .sticky-bar a:hover { background: var(--gold-light); }
+
+  @media (max-width: 700px) {
+    .why-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .why-right { grid-template-columns: 1fr 1fr; }
+    .hero-stats { gap: 1.5rem; }
+    nav { padding: 1rem 1.2rem; }
+    .hero { padding: 7rem 1.2rem 3rem; }
+    .services-section, .how-section { padding: 3.5rem 1.2rem; }
+    .sticky-bar { width: calc(100% - 2rem); justify-content: space-between; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Classic <span>Cut</span></div>
+  <div class="nav-badge">✦ Mowe, Ogun State</div>
+</nav>
+
+<section class="hero">
+  <p class="hero-tag">Premium Barbershop · 58 Ikugbumire, Mowe, Ogun State</p>
+  <h1 class="hero-title">Look sharp.<br><em>Feel fresh.</em><br>Every time.</h1>
+  <p class="hero-sub">Classic Cut is Mowe's go-to barbershop for clean fades, sharp lineups, and precise shaves. Book your seat in seconds on WhatsApp.</p>
+  <div class="hero-actions">
+    <a href="https://wa.me/2349027921586?text=Hi%20Classic%20Cut!%20I%20want%20to%20book%20an%20appointment%20✂️" class="btn-primary" target="_blank">✂️ Book Appointment</a>
+    <a href="#services" class="btn-secondary">View Services ↓</a>
+  </div>
+  <div class="hero-stats">
+    <div><span class="stat-num">500+</span><span class="stat-label">Happy clients</span></div>
+    <div><span class="stat-num">5★</span><span class="stat-label">Rated barbershop</span></div>
+    <div><span class="stat-num">Fast</span><span class="stat-label">WhatsApp booking</span></div>
+  </div>
+</section>
+
+<div class="marquee-strip">
+  <div class="strip-track">
+    <span class="strip-item">Low Cut <span class="strip-dot"></span></span>
+    <span class="strip-item">Fade <span class="strip-dot"></span></span>
+    <span class="strip-item">Lineup <span class="strip-dot"></span></span>
+    <span class="strip-item">Shaving <span class="strip-dot"></span></span>
+    <span class="strip-item">Beard Trim <span class="strip-dot"></span></span>
+    <span class="strip-item">Kids Cut <span class="strip-dot"></span></span>
+    <span class="strip-item">Classic Cut Barber Shop <span class="strip-dot"></span></span>
+    <span class="strip-item">Mowe Ogun State <span class="strip-dot"></span></span>
+    <span class="strip-item">Low Cut <span class="strip-dot"></span></span>
+    <span class="strip-item">Fade <span class="strip-dot"></span></span>
+    <span class="strip-item">Lineup <span class="strip-dot"></span></span>
+    <span class="strip-item">Shaving <span class="strip-dot"></span></span>
+    <span class="strip-item">Beard Trim <span class="strip-dot"></span></span>
+    <span class="strip-item">Kids Cut <span class="strip-dot"></span></span>
+    <span class="strip-item">Classic Cut Barber Shop <span class="strip-dot"></span></span>
+    <span class="strip-item">Mowe Ogun State <span class="strip-dot"></span></span>
+  </div>
+</div>
+
+<section class="services-section" id="services">
+  <p class="section-eyebrow">What we offer</p>
+  <h2 class="section-title">Our Services</h2>
+  <div class="services-grid">
+
+    <div class="service-card">
+      <span class="service-icon">✂️</span>
+      <h3 class="service-name">Haircut</h3>
+      <p class="service-desc">Clean, precise cuts tailored to your style. Low cuts, fades, afros — we do it all sharp.</p>
+      <div class="service-footer">
+        <span class="service-price">From ₦2,500</span>
+        <button class="book-btn" onclick="book('Haircut')">Book Now</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🪒</span>
+      <h3 class="service-name">Shaving</h3>
+      <p class="service-desc">Smooth, close shave with hot towel treatment. Leave looking fresh and feeling clean.</p>
+      <div class="service-footer">
+        <span class="service-price">From ₦1,000</span>
+        <button class="book-btn" onclick="book('Shaving')">Book Now</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">🧔</span>
+      <h3 class="service-name">Beard Trim</h3>
+      <p class="service-desc">Shape and line up your beard to perfection. Sharp edges, clean finish.</p>
+      <div class="service-footer">
+        <span class="service-price">From ₦1,000</span>
+        <button class="book-btn" onclick="book('Beard Trim')">Book Now</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">👦</span>
+      <h3 class="service-name">Kids Cut</h3>
+      <p class="service-desc">Gentle, patient cuts for the little ones. We make sure they leave looking fresh too.</p>
+      <div class="service-footer">
+        <span class="service-price">From ₦2,500</span>
+        <button class="book-btn" onclick="book('Kids Haircut')">Book Now</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">📐</span>
+      <h3 class="service-name">Lineup & Edge Up</h3>
+      <p class="service-desc">Razor-sharp lineup to give your haircut that clean, defined finish.</p>
+      <div class="service-footer">
+        <span class="service-price">From ₦1,000</span>
+        <button class="book-btn" onclick="book('Lineup & Edge Up')">Book Now</button>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <span class="service-icon">💈</span>
+      <h3 class="service-name">Full Package</h3>
+      <p class="service-desc">Haircut + shaving + lineup. The complete Classic Cut experience.</p>
+      <div class="service-footer">
+        <span class="service-price">From ₦4,000</span>
+        <button class="book-btn" onclick="book('Full Package (Haircut + Shaving + Lineup)')">Book Now</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="why-section">
+  <div class="why-inner">
+    <div class="why-left">
+      <p class="section-eyebrow">Why Classic Cut</p>
+      <h2 class="section-title">Mowe's finest barbershop</h2>
+      <p class="why-text">We don't just cut hair — we craft your look. Every client walks out with precision, style, and confidence.</p>
+      <div class="perks">
+        <div class="perk">
+          <div class="perk-icon">⚡</div>
+          <div>
+            <div class="perk-title">Book in seconds</div>
+            <div class="perk-desc">No waiting, no calling. Just WhatsApp us and your seat is reserved.</div>
+          </div>
+        </div>
+        <div class="perk">
+          <div class="perk-icon">✨</div>
+          <div>
+            <div class="perk-title">Premium finish</div>
+            <div class="perk-desc">Clean tools, sharp blades, skilled hands — every single time.</div>
+          </div>
+        </div>
+        <div class="perk">
+          <div class="perk-icon">📍</div>
+          <div>
+            <div class="perk-title">Easy to find</div>
+            <div class="perk-desc">58 Ikugbumire Street, right in the heart of Mowe. Walk in or book ahead.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="why-right">
+      <div class="why-card"><span class="why-card-num">500+</span><span class="why-card-label">Clients served</span></div>
+      <div class="why-card"><span class="why-card-num">5★</span><span class="why-card-label">Rating</span></div>
+      <div class="why-card"><span class="why-card-num">Fast</span><span class="why-card-label">Booking</span></div>
+      <div class="why-card"><span class="why-card-num">Daily</span><span class="why-card-label">Open 7 days</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="how-section">
+  <p class="section-eyebrow">Simple process</p>
+  <h2 class="section-title">How to book your appointment</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Tap "Book Appointment"</div>
+      <p class="step-desc">Opens a WhatsApp chat with us directly. No app download needed.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Tell us your service</div>
+      <p class="step-desc">Let us know what you want and when you're coming in.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">We confirm your slot</div>
+      <p class="step-desc">We reply fast and lock in your appointment time.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Walk in & get fresh</div>
+      <p class="step-desc">Show up, sit down, and leave looking sharp. Simple as that.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2 class="cta-title">Ready to look<br><em style="font-family:'Playfair Display',serif; color:var(--gold);">sharp?</em></h2>
+  <p class="cta-sub">Book your appointment now on WhatsApp. We respond fast.</p>
+  <a href="https://wa.me/2349027921586?text=Hi%20Classic%20Cut!%20I%20want%20to%20book%20an%20appointment%20✂️" class="btn-primary" target="_blank" style="display:inline-flex;">✂️ Book on WhatsApp</a>
+</section>
+
+<div class="location-bar">
+  📍 <strong>Classic Cut Barber Shop</strong> — 58 Ikugbumire, Mowe, Ogun State
+</div>
+
+<footer>
+  <strong>Classic Cut Barber Shop</strong> · 58 Ikugbumire, Mowe, Ogun State<br><br>
+  <span style="opacity:0.4;font-size:0.65rem;">Website by Kingbit · +234 902 792 1586</span>
+</footer>
+
+<div class="sticky-bar">
+  <span>✂️ Ready for a fresh cut?</span>
+  <a href="https://wa.me/2349027921586?text=Hi%20Classic%20Cut!%20I%20want%20to%20book%20✂️" target="_blank">Book Now</a>
+</div>
+
+<script>
+  function book(service) {
+    const msg = encodeURIComponent(`Hi Classic Cut! I want to book an appointment for: ${service} ✂️\n\nPlease confirm my slot.`);
+    window.open(`https://wa.me/2349027921586?text=${msg}`, '_blank');
+  }
+</script>
+
+</body>
+</html>
